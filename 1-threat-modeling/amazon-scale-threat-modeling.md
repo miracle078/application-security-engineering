@@ -31,32 +31,31 @@ This guide covers Amazon's threat modeling interview approach, focusing on syste
 
 ### Step 2: Amazon-Scale Architecture (3-4 minutes)
 
-**Architecture for 100M Users:**
-```
-[Customer Browser] → [CloudFront CDN] → [ALB] → [API Gateway] → [Lambda/ECS]
-                                                                      ↓
-[S3 Multi-Bucket] ← [KMS Encryption] ← [DLP Scanning] ← [Virus Scanning]
-                                                                      ↓
-[CloudTrail] → [Security Hub] → [GuardDuty] → [Automated Response]
-```
+**Architecture for 100 Million Users:**
+
+Customer Browser connects to CloudFront CDN, which connects to Application Load Balancer, then to API Gateway, then to Lambda or ECS services.
+
+The data flow continues to S3 Multi-Bucket storage, with KMS Encryption, DLP Scanning, and Virus Scanning integrated.
+
+CloudTrail feeds into Security Hub, which connects to GuardDuty for Automated Response.
 
 **Key AWS Services Integration:**
-- **CloudFront**: Global delivery + DDoS protection
-- **WAF**: Application-level filtering  
-- **S3**: Scalable storage with versioning
-- **KMS**: Centralized key management
-- **Lambda**: Serverless processing for scale
-- **GuardDuty**: ML-powered threat detection
-- **Macie**: Data classification and DLP
+- CloudFront: Global delivery plus DDoS protection
+- WAF: Application-level filtering  
+- S3: Scalable storage with versioning
+- KMS: Centralized key management
+- Lambda: Serverless processing for scale
+- GuardDuty: ML-powered threat detection
+- Macie: Data classification and DLP
 
-### Step 3: STRIDE Analysis with Amazon Context (8-10 minutes)
+### Step 3: STRIDE Analysis with Amazon Context (8 to 10 minutes)
 
-#### S - Spoofing Identity
-**Threat**: Attackers impersonating customers to access/upload files
+#### S for Spoofing Identity
+**Threat**: Attackers impersonating customers to access or upload files
 
 **Amazon Scale Impact**: 
-- 100M users = credential stuffing attacks highly likely
-- 0.1% compromise = 100K affected customers
+- 100 million users equals credential stuffing attacks highly likely
+- 0.1 percent compromise equals 100 thousand affected customers
 
 **Customer Impact**: 
 - Unauthorized access to personal support documents

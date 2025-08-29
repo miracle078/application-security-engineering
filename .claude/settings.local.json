@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:www.amazon.jobs)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:amazon.jobs)",
+      "WebFetch(domain:www.glassdoor.com)"
     ],
     "deny": [],
     "ask": []

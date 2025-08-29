@@ -19,11 +19,19 @@
 > "Everything is based on what you tell us, so structure is critical."
 
 ## Contents
-- `security-focused-star-stories.md` - All 16 principles with security examples
-- `story-bank-template.md` - Framework for developing your own stories
-- `metrics-and-impact.md` - How to quantify your examples
-- `delivery-techniques.md` - How to tell compelling stories
-- `common-questions.md` - Typical LP questions and variations
+- ⭐ [`security-focused-star-stories.md`](./security-focused-star-stories.md) - **ALL 16 PRINCIPLES WITH SECURITY EXAMPLES**
+
+## 🚀 Start Here - Immediate Practice
+1. **Read first 5 stories** (Customer Obsession through Learn and Be Curious)
+2. **Pick your strongest 3** and practice out loud
+3. **Time yourself** - each story should be 3-4 minutes
+4. **Add your metrics** - replace example numbers with your real data
+
+## Quick Self-Test
+Can you tell a compelling story with specific metrics for:
+- **Customer Obsession**: How did you improve customer trust/experience?
+- **Ownership**: What long-term decision did you drive?
+- **Learn and Be Curious**: What new technology/skill did you master?
 
 ## Preparation Strategy
 1. **Develop 16 detailed stories** (one per principle, 3-4 minutes each)

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Amazon Interview Preparation - Using Full Repository</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #232F3E 0%, #FF9900 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            background: linear-gradient(90deg, #232F3E, #FF9900);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: #FF9900;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: #e68900;
+            transform: translateY(-1px);
+        }
+        
+        .voice-controls {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .content-area {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            min-height: 300px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .topic-display {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #FF9900;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .metric-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FF9900;
+        }
+        
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .nav-section {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #3b82f6;
+        }
+        
+        .quiz-area {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Complete Amazon Application Security Engineer Preparation</h1>
+        <p>Using Full Repository Content for Jay Prajapati Interview</p>
+    </div>
+
+    <div class="container">
+        <div class="voice-controls">
+            <h3>🔊 Narration & Playback</h3>
+            <div style="display:grid; gap:8px; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); align-items:end;">
+                <div style="grid-column:span 2; min-width:220px;">
+                    <label style="font-size:12px; font-weight:600;">Voice</label>
+                    <select id="voiceSelect" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:6px;"></select>
+                </div>
+                <div>
+                    <label style="font-size:12px; font-weight:600;">Speed <span id="speedValue">1.3x</span></label>
+                    <input type="range" id="speedSlider" min="0.8" max="1.8" value="1.3" step="0.05" style="width:100%;">
+                </div>
+                <div>
+                    <label style="font-size:12px; font-weight:600;">Include Code</label><br>
+                    <label style="font-size:12px; display:flex; gap:4px; align-items:center;"> <input type="checkbox" id="includeCode"/> blocks </label>
+                </div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button id="playBtn" onclick="togglePlay()" style="background:#22c55e; flex:1;">▶️ Play</button>
+                    <button onclick="pauseNarration()" id="pauseBtn" style="background:#f59e0b; flex:1;">⏸️ Pause</button>
+                    <button onclick="stopNarration()" style="background:#dc2626; flex:1;">⏹️ Stop</button>
+                </div>
+            </div>
+            <div style="margin-top:10px; display:flex; gap:10px; align-items:center;">
+                <input type="range" id="progressSlider" min="0" max="0" value="0" step="1" style="flex:1;"> 
+                <div style="font-size:11px; min-width:90px; text-align:right;" id="timeDisplay">00:00 / 00:00</div>
+            </div>
+            <div id="currentSegment" style="margin-top:8px; font-size:12px; padding:8px; background:#fff; border-radius:6px; border:1px solid #eee; max-height:70px; overflow:auto; font-style:italic;">Select a document and press Play to start narration.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="navigation" id="navigation"></div>
+        <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:10px; align-items:center;">
+            <input id="searchInput" type="text" placeholder="🔍 Search all loaded docs (press Enter)" style="flex:1; padding:10px; border:1px solid #ccc; border-radius:6px;">
+            <button onclick="runSearch()" style="background:#2563eb;">Search</button>
+            <button onclick="clearSearch()" style="background:#6b7280;">Reset</button>
+            <button onclick="loadAllIndices()" style="background:#7c3aed;">Index All</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-area" id="mainContent">
+            <h2>🚀 Welcome to Complete Amazon Interview Preparation</h2>
+            <p>This comprehensive guide uses ALL content from your repository to prepare you for the Application Security Engineer interview with Jay Prajapati.</p>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-value">320+</div>
+                    <div>Lines of Real Content</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">15+</div>
+                    <div>Code Examples</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">16</div>
+                    <div>Leadership Stories</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$33B</div>
+                    <div>Max Risk Exposure</div>
+                </div>
+            </div>
+            
+            <p><strong>Select any topic above to start learning with voice narration!</strong></p>
+        </div>
+    </div>
+
+    <div class="container" style="text-align: center;">
+        <button onclick="readCurrentContent()" id="readBtn" style="background: #22c55e; font-size: 16px;">🗣️ Read Current Content</button>
+        <button onclick="startQuiz()" id="quizBtn" style="background: #dc2626; font-size: 16px;">🎯 Start Quiz</button>
+        <button onclick="showAllContent()" id="allBtn" style="background: #7c3aed; font-size: 16px;">📚 Show All Topics</button>
+    </div>
+
+    <script>
+    var voices = window.voices || [];
+    var currentSpeech = null;
+    var currentContent = window.currentContent || null;
+        
+        // Manifest of repository markdown / code files (generated manually; update if repo changes)
+        const repoManifest = [
+          {category:"Threat Modeling", path:"1-threat-modeling/amazon-scale-threat-modeling.md"},
+          {category:"Threat Modeling", path:"1-threat-modeling/customer-impact-analysis.md"},
+            {category:"Threat Modeling", path:"1-threat-modeling/file-upload-threat-model.md"},
+            {category:"Threat Modeling", path:"1-threat-modeling/practice-scenarios.md"},
+            {category:"Threat Modeling", path:"1-threat-modeling/threat-model-templates.md"},
+            {category:"Code Review", path:"2-secure-code-review/java-security-patterns.md"},
+            {category:"Code Review", path:"2-secure-code-review/live-code-review-examples.md"},
+            {category:"Code Review", path:"2-secure-code-review/live-review-methodology.md"},
+            {category:"Security Automation", path:"3-security-automation/aws-security-automation.md"},
+            {category:"Security Automation", path:"3-security-automation/aws-security-integration.py"},
+            {category:"Security Automation", path:"3-security-automation/security-scanner-tool.py"},
+            {category:"Vulnerability Analysis", path:"4-vulnerability-analysis/adversarial-analysis-techniques.md"},
+            {category:"Vulnerability Analysis", path:"4-vulnerability-analysis/aws-security-tools-integration.md"},
+            {category:"Vulnerability Analysis", path:"4-vulnerability-analysis/business-impact-assessment.md"},
+            {category:"Vulnerability Analysis", path:"4-vulnerability-analysis/idor-vulnerability-demo.py"},
+            {category:"Vulnerability Analysis", path:"4-vulnerability-analysis/interview-scenarios.md"},
+            {category:"Vulnerability Analysis", path:"4-vulnerability-analysis/vulnerability-prioritization.md"},
+            {category:"Leadership Principles", path:"5-leadership-principles/security-focused-star-stories.md"},
+            {category:"Communication & Influence", path:"6-influence-communication/amazon-influence-strategies.md"},
+            {category:"Communication & Influence", path:"6-influence-communication/stakeholder-management.md"},
+            {category:"Communication & Influence", path:"6-influence-communication/technical-business-translation.md"},
+            {category:"Amazon Specific", path:"7-amazon-specific-prep/customer-trust-focus.md"},
+            {category:"Interview Scenarios", path:"8-interview-scenarios/phone-screen-prep.md"},
+            {category:"Master Guides", path:"INTERVIEW-PREPARATION-CHECKLIST.md"},
+            {category:"Master Guides", path:"MASTER-INTERVIEW-GUIDE.md"},
+            {category:"Master Guides", path:"COMPLETE-AMAZON-INTERVIEW-GUIDE.md"}
+        ];
+
+    // In-memory cache of loaded file contents
+    const fileCache = {};
+    let repositoryContent = {}; // built dynamically per category for existing UI functions
+    // reuse existing globals voices & currentContent if defined
+    // (Declarations consolidated at top of script)
+
+        function groupByCategory() {
+            const map = {};
+            repoManifest.forEach(item => {
+                if(!map[item.category]) map[item.category] = [];
+                map[item.category].push(item);
+            });
+            return map;
+        }
+
+        function buildNavigation() {
+            const nav = document.getElementById('navigation');
+            const grouped = groupByCategory();
+            nav.innerHTML = Object.keys(grouped).map(cat => {
+                const safeCat = cat.replace(/[^a-z0-9]+/ig,'-').toLowerCase();
+                return `<div class="nav-section"><h4>${cat}</h4>${grouped[cat].map((f,i)=>`<button onclick=\"loadFile('${f.path.replace(/'/g,"%27")}', '${safeCat}', ${i})\">${fileTitle(f.path)}</button>`).join('')}</div>`;
+            }).join('');
+        }
+
+        function fileTitle(path){
+            return path.split('/').pop().replace(/[-_]/g,' ').replace(/\.md$/,'').replace(/\.py$/,'').replace(/\.pdf$/,'').replace(/\.\w+$/,'');
+        }
+
+        async function loadFile(path, sectionKey, index){
+            try {
+                // Reset narration state when loading new document
+                resetNarration();
+                
+                // if pdf skip
+                if(path.endsWith('.pdf')){ window.open(path, '_blank'); return; }
+                if(!fileCache[path]){
+                    const res = await fetch(path);
+                    if(!res.ok) throw new Error('Failed to load '+path+': '+res.status);
+                    fileCache[path] = await res.text();
+                }
+                const raw = fileCache[path];
+                const html = renderMarkdown(raw, path);
+                currentContent = {title: fileTitle(path), content: raw, visual: html};
+                if(!repositoryContent[sectionKey]) repositoryContent[sectionKey] = [];
+                repositoryContent[sectionKey][index] = currentContent; // keep compatibility
+                document.getElementById('mainContent').innerHTML = `<div class="topic-display"><h2>${currentContent.title}</h2>${html}<div style="margin-top:15px;"><button style="background:#22c55e;" onclick="readCurrentContent()">🗣️ Read This Content</button> <button style="background:#2563eb;" onclick="copyRaw('${path}')">📋 Copy Raw</button></div></div>`;
+            } catch(e){
+                document.getElementById('mainContent').innerHTML = `<div class='topic-display'><h2>Error Loading File</h2><p>${e.message}</p><p>If opening locally via file:// some browsers block fetch; use a simple local server.</p></div>`;
+            }
+        }
+
+        function copyRaw(path){
+            if(fileCache[path]){
+                navigator.clipboard.writeText(fileCache[path]);
+            }
+        }
+
+        // Simple markdown renderer (basic headings, lists, code)
+        function renderMarkdown(md, path){
+            // Handle Python files specially
+            if(path.endsWith('.py')){
+                const escaped = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                return `<div data-path='${path}'><h2>Python Code: ${fileTitle(path)}</h2><pre class='code-block'>${escaped}</pre></div>`;
+            }
+            
+            let esc = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            // code blocks ```
+            esc = esc.replace(/```([\s\S]*?)```/g, (m,code)=>`<pre class='code-block'>${code.replace(/\n/g,'<br>')}</pre>`);
+            // inline code
+            esc = esc.replace(/`([^`]+)`/g, '<code>$1</code>');
+            // headings (fix order - longer patterns first)
+            esc = esc.replace(/^#### (.*)$/gm,'<h4>$1</h4>')
+                  .replace(/^### (.*)$/gm,'<h3>$1</h3>')
+                  .replace(/^## (.*)$/gm,'<h2>$1</h2>')
+                  .replace(/^# (.*)$/gm,'<h1>$1</h1>');
+            // bold
+            esc = esc.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+            // italics
+            esc = esc.replace(/\*(.*?)\*/g,'<em>$1</em>');
+            // lists
+            esc = esc.replace(/^(?:- |\* )(.*)$/gm,'<li>$1</li>');
+            esc = esc.replace(/(<li>[\s\S]*?<\/li>)/g,'<ul>$1</ul>');
+            // links `[text](url)`
+            esc = esc.replace(/\[(.*?)\]\((.*?)\)/g,'<a href="$2" target="_blank">$1</a>');
+            // paragraphs (simple approach)
+            esc = esc.replace(/\n\n/g, '</p><p>');
+            esc = '<p>' + esc + '</p>';
+            // clean up empty paragraphs
+            esc = esc.replace(/<p><\/p>/g, '').replace(/<p>(<[uh][1-6ul])/g, '$1').replace(/(<\/[uh][1-6ul]>)<\/p>/g, '$1');
+            
+            return `<div data-path='${path}'>${esc}</div>`;
+        }
+
+        // Search across loaded or on-demand all files
+        async function runSearch(){
+            const q = document.getElementById('searchInput').value.trim();
+            if(!q){return;}
+            const results = [];
+            for(const item of repoManifest){
+                if(item.path.endsWith('.pdf')) continue;
+                if(!fileCache[item.path]){
+                    try { const r = await fetch(item.path); if(r.ok){ fileCache[item.path] = await r.text(); } } catch{}
+                }
+                const txt = fileCache[item.path];
+                if(txt && txt.toLowerCase().includes(q.toLowerCase())){
+                    const snippet = snippetFor(txt,q);
+                    results.push({path:item.path, snippet});
+                }
+            }
+            document.getElementById('mainContent').innerHTML = `<div class='topic-display'><h2>Search Results for "${q}" (${results.length})</h2>${results.length?'<ul>'+results.map(r=>`<li><a href='#' onclick=\"loadFile('${r.path}','search',0)\">${fileTitle(r.path)}</a><div style='font-size:12px; color:#555; margin:4px 0;'>${r.snippet}</div></li>`).join('')+'</ul>':'<p>No matches.</p>'}</div>`;
+            speak(`Search complete. Found ${results.length} results for ${q}`);
+        }
+
+        function snippetFor(text,q){
+            const idx = text.toLowerCase().indexOf(q.toLowerCase());
+            if(idx===-1) return '';
+            const start = Math.max(0, idx-60); const end = Math.min(text.length, idx+60);
+            return text.substring(start,end).replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(new RegExp(q,'ig'),m=>`<mark>${m}</mark>`);
+        }
+
+        function clearSearch(){ document.getElementById('searchInput').value=''; document.getElementById('mainContent').innerHTML = defaultWelcome; }
+
+        async function loadAllIndices(){
+            let count = 0; let chars=0;
+            for(const item of repoManifest){
+                if(item.path.endsWith('.pdf')) continue;
+                if(!fileCache[item.path]){ try{ const r = await fetch(item.path); if(r.ok){ fileCache[item.path]= await r.text(); }}catch{} }
+                if(fileCache[item.path]){ count++; chars += fileCache[item.path].length; }
+            }
+            document.getElementById('mainContent').innerHTML = `<div class='topic-display'><h2>Index Built</h2><p>Indexed ${count} files. ${(chars/1000).toFixed(1)}K characters cached.</p><ul>${repoManifest.map(i=>`<li>${fileTitle(i.path)}</li>`).join('')}</ul></div>`;
+            speak(`Indexed ${count} files for rapid access.`);
+        }
+
+        const defaultWelcome = document.getElementById('mainContent').innerHTML;
+        
+        // === New Voice & Narration Engine ===
+        let selectedVoice = null;
+    let narrationSegments = [];
+    let narrationIndex = 0;
+    let isNarrating = false;
+    let pausedManually = false;
+        let totalChars = 0;
+        const PERSIST_KEY = 'ase_prep_narration';
+
+        function loadVoices(){
+            voices = speechSynthesis.getVoices();
+            if(!voices.length) return;
+            
+            // Optimized for UK professional interviewer Jay Prajapati
+            const ukProfessional = /Daniel|George|Guy|Oliver|James|Thomas|William|Charles|Microsoft.*David|Microsoft.*George/i;
+            const quality = /Neural|Natural|Microsoft|Google|Premium|Enhanced/i;
+            
+            const ranked = voices.filter(v=>/en-(GB|US)/i.test(v.lang)).sort((a,b)=>{
+                const score = v => {
+                    let points = 0;
+                    if(/en-GB/i.test(v.lang)) points += 6; // Strong preference for UK English
+                    else if(/en-US/i.test(v.lang)) points += 2;
+                    if(ukProfessional.test(v.name)) points += 4; // UK professional male voices
+                    if(quality.test(v.name)) points += 2; // High quality voices
+                    if(/male|man/i.test(v.name) && !/female|woman/i.test(v.name)) points += 1; // Male voices
+                    return points;
+                };
+                return score(b) - score(a);
+            }).slice(0,8);
+            
+            const sel = document.getElementById('voiceSelect');
+            sel.innerHTML = ranked.map((v,i)=>`<option value="${i}">${v.name} (${v.lang})</option>`).join('');
+            const saved = loadPersist().voiceName;
+            selectedVoice = ranked.find(v=>v.name===saved) || ranked[0];
+            sel.value = ranked.indexOf(selectedVoice);
+            sel.onchange = ()=>{ selectedVoice = ranked[sel.value]; persistState(); };
+        }
+
+        function systemSpeak(text){
+            if(!text) return;
+            if(currentSpeech) speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            if(selectedVoice) u.voice = selectedVoice;
+            u.rate = parseFloat(document.getElementById('speedSlider').value);
+            currentSpeech = u; speechSynthesis.speak(u);
+        }
+
+        function cleanForNarration(raw){
+            const includeCode = document.getElementById('includeCode').checked;
+            let t = raw.replace(/\r/g,'');
+            
+            // Handle code blocks
+            if(!includeCode) t = t.replace(/```[\s\S]*?```/g,' ');
+            else t = t.replace(/```([\s\S]*?)```/g,(m,c)=>' Code block: '+c.split(/\n/).slice(0,3).join('. ')+' ... ');
+            
+            // TTS-specific improvements
+            t = t.replace(/`[^`]*`/g,'') // Remove inline code
+                .replace(/^#+\s?/gm,'') // Remove headers
+                .replace(/[>*_#`]/g,' ') // Remove markdown symbols
+                .replace(/\[(.*?)\]\([^)]*\)/g,'$1') // Links to text only
+                .replace(/→/g, ' to ') // Arrow symbols
+                .replace(/\+/g, ' plus ') // Plus signs
+                .replace(/&/g, ' and ') // Ampersands
+                .replace(/\//g, ' slash ') // Forward slashes
+                .replace(/\$/g, ' dollars ') // Dollar signs in costs
+                .replace(/€/g, ' euros ') // Euro symbols
+                .replace(/£/g, ' pounds ') // Pound symbols
+                .replace(/100M\+/g, '100 million plus') // Common abbreviation
+                .replace(/(\d+)M\+/g, '$1 million plus') // Million plus
+                .replace(/(\d+)M/g, '$1 million') // Million abbreviations
+                .replace(/(\d+)K\+/g, '$1 thousand plus') // Thousand plus
+                .replace(/(\d+)K/g, '$1 thousand') // Thousand abbreviations
+                .replace(/(\d+)\+/g, '$1 plus') // Plus after numbers
+                .replace(/(\d+)-(\d+)/g, '$1 to $2') // Number ranges
+                .replace(/(\d+)%/g, '$1 percent') // Percentages
+                .replace(/\$(\d+)B/g, '$1 billion dollars') // Billions
+                .replace(/€(\d+)M/g, '$1 million euros') // Euro millions
+                .replace(/API/g, 'A P I') // Spell out acronyms
+                .replace(/AWS/g, 'A W S')
+                .replace(/STRIDE/g, 'S T R I D E')
+                .replace(/IDOR/g, 'I D O R')
+                .replace(/TTS/g, 'T T S')
+                .replace(/DDoS/g, 'D D O S')
+                .replace(/GDPR/g, 'G D P R')
+                .replace(/KMS/g, 'K M S')
+                .replace(/DLP/g, 'D L P')
+                .replace(/CDN/g, 'C D N')
+                .replace(/ALB/g, 'A L B')
+                .replace(/ECS/g, 'E C S')
+                .replace(/S3/g, 'S 3')
+                .replace(/IAM/g, 'I A M')
+                .replace(/\s{2,}/g,' ') // Multiple spaces to single
+                .trim();
+            
+            return t;
+        }
+
+        function buildSegments(text){
+            const rawSegs = text.split(/(?<=[.!?])\s+(?=[A-Z0-9])/).filter(s=>s.trim());
+            const merged = []; let buf='';
+            rawSegs.forEach(s=>{ if((buf+' '+s).trim().length < 200) buf = (buf?buf+' ':'')+s; else { if(buf) merged.push(buf); buf=s; } });
+            if(buf) merged.push(buf);
+            narrationSegments = merged; totalChars = merged.reduce((a,c)=>a+c.length,0);
+            if(narrationIndex >= narrationSegments.length) narrationIndex = 0;
+            updateProgress();
+        }
+
+        function playSegment(){
+            if(narrationIndex >= narrationSegments.length){
+                isNarrating=false; 
+                systemSpeak('Document complete.');
+                document.getElementById('playBtn').textContent='▶️ Play';
+                const pb=document.getElementById('pauseBtn'); if(pb) pb.textContent='⏸️ Pause';
+                // Reset for next document
+                narrationIndex = 0;
+                narrationSegments = [];
+                persistState(); 
+                return;
+            }
+            if(currentSpeech) speechSynthesis.cancel();
+            const seg = narrationSegments[narrationIndex];
+            const u = new SpeechSynthesisUtterance(seg);
+            if(selectedVoice) u.voice = selectedVoice;
+            u.rate = parseFloat(document.getElementById('speedSlider').value);
+            u.onend = ()=>{
+                if(pausedManually || !isNarrating) { return; }
+                narrationIndex++;
+                updateProgress();
+                persistState();
+                if(isNarrating) playSegment();
+            };
+            currentSpeech = u;
+            highlightSegment(seg);
+            speechSynthesis.speak(u);
+        }
+
+        function highlightSegment(seg){
+            const box = document.getElementById('currentSegment');
+            if(box) box.textContent = seg;
+        }
+
+        function startNarration(){
+            if(!currentContent){ systemSpeak('Load a document first.'); return; }
+            buildSegments(cleanForNarration(currentContent.content));
+            narrationIndex = loadPersist().segIndex || 0;
+            isNarrating = true; document.getElementById('playBtn').textContent='🔁 Restart';
+            playSegment(); persistState();
+        }
+        function togglePlay(){
+            if(!isNarrating){ startNarration(); }
+            else { stopNarration(); }
+        }
+        
+        function resetNarration(){
+            speechSynthesis.cancel();
+            isNarrating = false;
+            pausedManually = false;
+            narrationIndex = 0;
+            narrationSegments = [];
+            document.getElementById('playBtn').textContent='▶️ Play';
+            const pb = document.getElementById('pauseBtn'); 
+            if(pb) pb.textContent='⏸️ Pause';
+            updateProgress();
+        }
+        function pauseNarration(){
+            const btn = document.getElementById('pauseBtn');
+            // If not currently paused manually, initiate manual pause
+            if(!pausedManually){
+                if(currentSpeech){
+                    pausedManually = true;
+                    speechSynthesis.cancel(); // stop current utterance without advancing index
+                    if(btn) btn.textContent='▶️ Resume';
+                }
+            } else {
+                // Resume from same segment
+                pausedManually = false;
+                if(btn) btn.textContent='⏸️ Pause';
+                if(isNarrating){
+                    playSegment(); // replay same segment from beginning
+                } else {
+                    // If narration was fully stopped, restart from current index
+                    isNarrating = true;
+                    playSegment();
+                }
+            }
+        }
+        function stopNarration(){
+            speechSynthesis.cancel();
+            isNarrating=false;
+            pausedManually=false;
+            document.getElementById('playBtn').textContent='▶️ Play';
+            const pb=document.getElementById('pauseBtn'); if(pb) pb.textContent='⏸️ Pause';
+            persistState();
+        }
+
+        document.getElementById('progressSlider').addEventListener('input', e=>{ narrationIndex = parseInt(e.target.value,10); updateProgress(); if(isNarrating) playSegment(); persistState(); });
+        document.getElementById('speedSlider').addEventListener('input', ()=>{ document.getElementById('speedValue').textContent=document.getElementById('speedSlider').value+'x'; persistState(); });
+        document.getElementById('includeCode').addEventListener('change', ()=>{ if(currentContent){ stopNarration(); startNarration(); } });
+
+        function updateProgress(){
+            const slider = document.getElementById('progressSlider');
+            slider.max = narrationSegments.length? narrationSegments.length-1:0;
+            slider.value = narrationIndex;
+            const doneChars = narrationSegments.slice(0,narrationIndex).reduce((a,c)=>a+c.length,0);
+            const speed = parseFloat(document.getElementById('speedSlider').value);
+            const estTotal = totalChars*(50/speed);
+            const estDone = doneChars*(50/speed);
+            const fmt = ms=>{ const s=Math.round(ms/1000); return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; };
+            document.getElementById('timeDisplay').textContent = `${fmt(estDone)} / ${fmt(estTotal)}`;
+        }
+
+        function persistState(){
+            try { localStorage.setItem(PERSIST_KEY, JSON.stringify({
+                voiceName: selectedVoice? selectedVoice.name:null,
+                speed: document.getElementById('speedSlider').value,
+                includeCode: document.getElementById('includeCode').checked,
+                segIndex: narrationIndex,
+                title: currentContent? currentContent.title:null
+            })); } catch(e){}
+        }
+        function loadPersist(){ try { return JSON.parse(localStorage.getItem(PERSIST_KEY)) || {}; } catch(e){ return {}; } }
+        function readCurrentContent(){ startNarration(); }
+        function testVoice(){ systemSpeak('Voice ready.'); }
+        function stopSpeaking(){ stopNarration(); }
+
+        // Backwards compatibility: showContent now delegates to existing loaded content
+        function showContent(section,index){
+            if(repositoryContent[section] && repositoryContent[section][index]){
+                const c = repositoryContent[section][index];
+                document.getElementById('mainContent').innerHTML = `<div class='topic-display'><h2>${c.title}</h2>${c.visual}<div style='margin-top:15px;'><button style="background:#22c55e;" onclick="readCurrentContent()">🗣️ Read This Content</button></div></div>`;
+                currentContent = c;
+            }
+        }
+
+        function readCurrentContent() {
+            if (currentContent) {
+                speak(currentContent.content);
+            } else {
+                speak("Please select a topic first by clicking one of the buttons above.");
+            }
+        }
+
+        function showAllContent(){
+            const grouped = groupByCategory();
+            document.getElementById('mainContent').innerHTML = `<div class='topic-display'><h2>📚 Repository Catalog</h2>${Object.keys(grouped).map(cat=>`<h3>${cat}</h3><ul>${grouped[cat].map(f=>`<li><a href='#' onclick=\"loadFile('${f.path}','cat',0)\">${fileTitle(f.path)}</a></li>`).join('')}</ul>`).join('')}<p><strong>Click any file to load its content dynamically.</strong></p></div>`;
+            speak('Repository catalog displayed. Select any file to load.');
+        }
+
+        function startQuiz() {
+            const quizQuestions = [
+                {
+                    question: "According to the file upload threat model, what is the total potential exposure if all Amazon Prime members were affected by a data breach?",
+                    answer: "$33 billion potential exposure. Calculation: $165 per customer record times 200 million customers equals $33B total exposure."
+                },
+                {
+                    question: "In the Customer Obsession STAR story, what were the specific measurable outcomes of the Security Transparency Dashboard?",
+                    answer: "Customer trust scores increased to 4.6 (highest ever), security support tickets decreased 45%, 73% reported increased confidence, and Net Promoter Score increased by 18 points."
+                },
+                {
+                    question: "What are the three main vulnerable patterns demonstrated in the IDOR script?",
+                    answer: "Sequential ID enumeration with predictable IDs, direct database ID exposure through primary keys in URLs, and insufficient authorization with missing permission checks."
+                }
+            ];
+            
+            let currentQuestion = 0;
+            
+            function askQuestion() {
+                if (currentQuestion < quizQuestions.length) {
+                    const q = quizQuestions[currentQuestion];
+                    document.getElementById('mainContent').innerHTML = `
+                        <div class="quiz-area">
+                            <h3>🎯 Quiz Question ${currentQuestion + 1} of ${quizQuestions.length}</h3>
+                            <p><strong>${q.question}</strong></p>
+                            <button onclick="showQuizAnswer(${currentQuestion})">💡 Show Answer</button>
+                            <button onclick="nextQuestion()" ${currentQuestion === quizQuestions.length - 1 ? 'style="background:#dc2626;"' : ''}>
+                                ${currentQuestion === quizQuestions.length - 1 ? '✅ Complete Quiz' : '➡️ Next Question'}
+                            </button>
+                            <div id="quizAnswer"></div>
+                        </div>
+                    `;
+                    
+                    speak(`Quiz question ${currentQuestion + 1}: ${q.question}`);
+                } else {
+                    document.getElementById('mainContent').innerHTML = `
+                        <div class="topic-display">
+                            <h2>🎉 Quiz Complete!</h2>
+                            <p>Excellent work! You've demonstrated understanding of key repository content including threat modeling, vulnerability analysis, and leadership principles.</p>
+                            <p><strong>You're well prepared for your Amazon interview with Jay Prajapati!</strong></p>
+                        </div>
+                    `;
+                    speak("Quiz complete! You've demonstrated excellent understanding of the repository content. You're well prepared for your Amazon Application Security Engineer interview.");
+                }
+            }
+            
+            window.showQuizAnswer = function(questionIndex) {
+                const q = quizQuestions[questionIndex];
+                document.getElementById('quizAnswer').innerHTML = `
+                    <div class="topic-display" style="margin-top: 15px; background: #f0f9ff;">
+                        <h4>✅ Answer:</h4>
+                        <p>${q.answer}</p>
+                    </div>
+                `;
+                speak(q.answer);
+            };
+            
+            window.nextQuestion = function() {
+                currentQuestion++;
+                askQuestion();
+            };
+            
+            askQuestion();
+        }
+
+        // Update speed display
+        document.getElementById('speedSlider').addEventListener('input', function() {
+            document.getElementById('speedValue').textContent = this.value + 'x';
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            buildNavigation();
+            loadVoices();
+            if(voices.length===0){ setTimeout(loadVoices,1000); }
+        });
+
+        speechSynthesis.addEventListener('voiceschanged', loadVoices);
+    </script>
+</body>
+</html>

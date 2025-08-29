@@ -27,25 +27,76 @@
 
 ## Repository Structure (Prioritized by Amazon's Requirements)
 
-### 🎯 **Core Technical Skills** (Phone Screen Focus)
-```
-├── 1-threat-modeling/          # Primary responsibility - threat models for software projects
-├── 2-secure-code-review/      # Daily activity - Java/Python/JavaScript review
-├── 3-security-automation/     # Key requirement - tools for developers
-├── 4-vulnerability-analysis/   # Adversarial analysis and remediation
-```
+### Core Technical Skills - Phone Screen Focus
 
-### 💼 **Leadership & Communication** (50% of Interview)
-```
-├── 5-leadership-principles/    # STAR method responses for all 16 principles
-├── 6-influence-communication/  # Technical to non-technical communication
-```
+#### 1. Threat Modeling - Primary Responsibility
+- Complete Methodology - STRIDE framework for 100 million plus users
+- Reusable Templates - Web apps, APIs, microservices  
+- Customer Impact Analysis - Business impact quantification
+- File Upload Threat Model - Recruiter's specific scenario
+- Practice Scenarios - Prime Video, Alexa, AWS Marketplace
 
-### 📚 **Amazon Context & Preparation**
-```
-├── 7-amazon-specific-prep/     # AWS services, Amazon scale, customer trust
-├── 8-interview-scenarios/      # Practice questions and mock interviews
-```
+#### 2. Secure Code Review - Daily Activity  
+- Live Code Review Examples - Java, Python, JavaScript
+- Review Methodology - Systematic approach
+- Java Security Patterns - Enterprise patterns
+
+#### 3. Security Automation - Key Requirement
+- Security Scanner Tool - Working Python script
+- AWS Security Integration - Security Hub automation
+- AWS Security Automation - Enterprise scale
+
+#### 4. Vulnerability Analysis - Adversarial Analysis
+- IDOR Vulnerability Demo - Recruiter's scenario
+- Interview Scenarios - Executive communication
+- Analysis Techniques - Manual plus automated
+- Vulnerability Prioritization - Business risk
+- AWS Security Tools - Native integrations
+
+### Leadership & Communication - 50% of Interview
+
+#### 5. Leadership Principles - STAR Stories
+- Security-Focused STAR Stories - All 16 principles
+
+#### 6. Influence & Communication - Stakeholder Management
+- Amazon Influence Strategies
+- Stakeholder Management
+- Technical-Business Translation
+
+### Amazon Context & Preparation
+
+#### 7. Amazon-Specific Prep - Customer Trust Focus
+- Customer Trust Focus
+
+#### 8. Interview Scenarios - Mock Interviews
+- Phone Screen Prep - 60-minute simulation
+
+### Interactive Practice
+- Interactive Practice Setup - Voice practice plus 25 plus GitHub repos
+- Interview Preparation Checklist
+- Master Interview Guide - Complete strategy
+
+## Start Here - Immediate Actions
+
+### First 30 Minutes
+1. Read Master Interview Guide - Complete strategy overview
+2. Practice File Upload Threat Model - Recruiter's scenario
+3. Run IDOR Vulnerability Script - Technical demo
+4. Review Leadership Principles Stories - Pick your top 5
+
+### Phone Screen Ready This Week
+- Practice threat modeling in 15 to 20 minutes
+- Code review examples memorized  
+- IDOR script working and explained
+- 8 STAR stories ready with metrics
+
+### Full Interview Ready Next 2 to 3 Weeks  
+- All 16 Leadership Principle stories
+- Security automation tools built
+- AWS integration examples working
+- Executive communication polished
+
+---
 
 ## Quick Start for Interview Prep
 

@@ -15,12 +15,18 @@
 - **Follow-up questions**: Scalable solutions, prevention strategies, business impact
 
 ## Contents
-- `live-review-methodology.md` - Amazon's code review approach
-- `java-security-patterns.md` - Common Java vulnerabilities and fixes
-- `python-security-patterns.md` - Python-specific security issues
-- `javascript-security-patterns.md` - Client-side and Node.js security
-- `interview-scenarios.md` - Practice code samples with solutions
-- `automation-integration.md` - SAST tools and CI/CD integration
+- 🔍 [`live-code-review-examples.md`](./live-code-review-examples.md) - **COMPLETE JAVA/PYTHON/JAVASCRIPT EXAMPLES**
+- 📖 [`live-review-methodology.md`](./live-review-methodology.md) - Amazon's systematic code review approach
+- ☕ [`java-security-patterns.md`](./java-security-patterns.md) - Enterprise Java security patterns
+
+## 🚀 Start Here - Interview Practice
+**Quick Test**: Open [`live-code-review-examples.md`](./live-code-review-examples.md) and:
+1. **Time yourself** reviewing the Java authentication example (5 minutes max)
+2. **Identify** all security vulnerabilities 
+3. **Explain** business impact in Amazon terms (customer trust, scale impact)
+4. **Propose** AWS-native solutions
+
+**Expected Findings**: JWT vulnerabilities, IDOR issues, information disclosure, weak validation
 
 ## Practice Routine
 1. **Daily**: Review 2-3 code samples (10-15 minutes each)

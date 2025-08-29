@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Interview Practice - Browser TTS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ff9900;
+        }
+        button {
+            background: #ff9900;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background: #e68900;
+        }
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff9900;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .key-points {
+            background: #f0f9ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .voice-controls {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Amazon Interview Practice - Browser TTS</h1>
+        
+        <div class="voice-controls">
+            <h3>Voice Settings</h3>
+            <label>Voice: </label>
+            <select id="voiceSelect"></select>
+            <label>Speed: </label>
+            <input type="range" id="speedSlider" min="0.5" max="2" value="1" step="0.1">
+            <span id="speedValue">1.0</span>
+        </div>
+
+        <div class="controls">
+            <button onclick="startTechnicalPractice()">🔧 Technical Questions</button>
+            <button onclick="startLeadershipPractice()">⭐ Leadership Principles</button>
+            <button onclick="startBusinessPractice()">💼 Business Impact</button>
+            <button onclick="stopSpeaking()">⏹️ Stop</button>
+        </div>
+
+        <div id="content">
+            <h2>Ready to Practice!</h2>
+            <p>Choose a practice mode above to begin. The browser will read questions aloud and guide you through the Amazon interview process.</p>
+        </div>
+
+        <div id="timer" class="timer" style="display: none;">
+            <div id="timerDisplay">15:00</div>
+        </div>
+    </div>
+
+    <script>
+        let currentSpeech = null;
+        let currentTimer = null;
+        let currentQuestionIndex = 0;
+        let voices = [];
+
+        // Load voices when available
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            const voiceSelect = document.getElementById('voiceSelect');
+            voiceSelect.innerHTML = '';
+            
+            voices.forEach((voice, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                if (voice.name.includes('Microsoft') || voice.name.includes('Google')) {
+                    option.selected = true;
+                }
+                voiceSelect.appendChild(option);
+            });
+        }
+
+        // Initialize voices
+        speechSynthesis.addEventListener('voiceschanged', loadVoices);
+        loadVoices();
+
+        // Update speed display
+        document.getElementById('speedSlider').addEventListener('input', function() {
+            document.getElementById('speedValue').textContent = this.value;
+        });
+
+        function speak(text, callback) {
+            stopSpeaking();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            const voiceIndex = document.getElementById('voiceSelect').value;
+            const speed = document.getElementById('speedSlider').value;
+            
+            if (voices[voiceIndex]) {
+                utterance.voice = voices[voiceIndex];
+            }
+            utterance.rate = parseFloat(speed);
+            utterance.pitch = 1;
+            utterance.volume = 0.8;
+            
+            if (callback) {
+                utterance.onend = callback;
+            }
+            
+            currentSpeech = utterance;
+            speechSynthesis.speak(utterance);
+        }
+
+        function stopSpeaking() {
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                currentSpeech = null;
+            }
+            if (currentTimer) {
+                clearInterval(currentTimer);
+                currentTimer = null;
+                document.getElementById('timer').style.display = 'none';
+            }
+        }
+
+        function startTimer(minutes, callback) {
+            let timeLeft = minutes * 60;
+            const timerDisplay = document.getElementById('timerDisplay');
+            const timerElement = document.getElementById('timer');
+            
+            timerElement.style.display = 'block';
+            
+            currentTimer = setInterval(() => {
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                timerDisplay.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+                
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(currentTimer);
+                    currentTimer = null;
+                    timerElement.style.display = 'none';
+                    if (callback) callback();
+                }
+            }, 1000);
+        }
+
+        const technicalQuestions = [
+            {
+                question: "Walk me through how you would threat model a file upload feature for Amazon's retail website that handles millions of uploads daily.",
+                keyPoints: ["STRIDE methodology", "Scale considerations for millions of users", "Customer impact assessment", "AWS service integration"],
+                timeLimit: 15
+            },
+            {
+                question: "How would you handle a critical SQL injection vulnerability discovered in production affecting customer payment data?",
+                keyPoints: ["Immediate containment measures", "Impact assessment and quantification", "Systematic remediation plan", "Prevention and monitoring"],
+                timeLimit: 10
+            }
+        ];
+
+        const leadershipQuestions = [
+            {
+                principle: "Customer Obsession",
+                question: "Tell me about a time when you had to balance security requirements with customer experience.",
+                focus: "Customer trust metrics and business impact"
+            },
+            {
+                principle: "Ownership", 
+                question: "Describe a security project you owned from start to finish.",
+                focus: "Personal accountability and long-term thinking"
+            }
+        ];
+
+        function startTechnicalPractice() {
+            currentQuestionIndex = 0;
+            
+            document.getElementById('content').innerHTML = `
+                <h2>🔧 Technical Interview Practice</h2>
+                <div class="question">
+                    <h3>Question ${currentQuestionIndex + 1}</h3>
+                    <p>${technicalQuestions[currentQuestionIndex].question}</p>
+                    <p><strong>Time Limit: ${technicalQuestions[currentQuestionIndex].timeLimit} minutes</strong></p>
+                </div>
+                <div class="controls">
+                    <button onclick="startThinking()">▶️ Start Timer & Think</button>
+                    <button onclick="showKeyPoints()">💡 Show Key Points</button>
+                    <button onclick="nextTechnicalQuestion()">⏭️ Next Question</button>
+                </div>
+                <div id="keyPointsContainer"></div>
+            `;
+
+            speak(`Technical interview practice. Question ${currentQuestionIndex + 1}: ${technicalQuestions[currentQuestionIndex].question}. You have ${technicalQuestions[currentQuestionIndex].timeLimit} minutes to respond. Click Start Timer when ready.`);
+        }
+
+        function startThinking() {
+            const timeLimit = technicalQuestions[currentQuestionIndex].timeLimit;
+            speak(`Timer started. You have ${timeLimit} minutes to think through your systematic approach.`);
+            
+            startTimer(timeLimit, () => {
+                speak("Time is up! Let's review the key points you should have covered.");
+                showKeyPoints();
+            });
+        }
+
+        function showKeyPoints() {
+            const keyPoints = technicalQuestions[currentQuestionIndex].keyPoints;
+            document.getElementById('keyPointsContainer').innerHTML = `
+                <div class="key-points">
+                    <h4>Key Points to Cover:</h4>
+                    <ul>
+                        ${keyPoints.map(point => `<li>${point}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            speak(`Key points you should have covered: ${keyPoints.join('. ')}`);
+        }
+
+        function nextTechnicalQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < technicalQuestions.length) {
+                startTechnicalPractice();
+            } else {
+                speak("Technical questions complete! Great job. You can now practice Leadership Principles.");
+                document.getElementById('content').innerHTML = `
+                    <h2>✅ Technical Practice Complete!</h2>
+                    <p>You've completed all technical questions. Ready for Leadership Principles?</p>
+                `;
+            }
+        }
+
+        function startLeadershipPractice() {
+            currentQuestionIndex = 0;
+            
+            document.getElementById('content').innerHTML = `
+                <h2>⭐ Leadership Principles Practice</h2>
+                <div class="question">
+                    <h3>${leadershipQuestions[currentQuestionIndex].principle}</h3>
+                    <p>${leadershipQuestions[currentQuestionIndex].question}</p>
+                    <p><strong>Focus: ${leadershipQuestions[currentQuestionIndex].focus}</strong></p>
+                </div>
+                <div class="controls">
+                    <button onclick="startSTAR()">📝 Start STAR Response</button>
+                    <button onclick="nextLeadershipQuestion()">⏭️ Next Principle</button>
+                </div>
+                <div id="starGuidance"></div>
+            `;
+
+            speak(`Leadership Principles practice. ${leadershipQuestions[currentQuestionIndex].principle}. ${leadershipQuestions[currentQuestionIndex].question}. Focus on ${leadershipQuestions[currentQuestionIndex].focus}. Use the STAR method.`);
+        }
+
+        function startSTAR() {
+            document.getElementById('starGuidance').innerHTML = `
+                <div class="key-points">
+                    <h4>STAR Method Framework:</h4>
+                    <ul>
+                        <li><strong>Situation:</strong> Specific business context with clear stakes</li>
+                        <li><strong>Task:</strong> Your personal responsibility and challenges</li>
+                        <li><strong>Action:</strong> Detailed steps YOU took (use "I" not "we")</li>
+                        <li><strong>Result:</strong> Quantified outcomes and business impact</li>
+                    </ul>
+                </div>
+            `;
+
+            speak("Remember the STAR method: Situation with specific business context. Task showing your personal responsibility. Action detailing steps YOU took, using I not we. Result with quantified outcomes and business impact. Include specific metrics and customer impact.");
+        }
+
+        function nextLeadershipQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < leadershipQuestions.length) {
+                startLeadershipPractice();
+            } else {
+                speak("Leadership Principles practice complete! Excellent work. You're ready for your Amazon interview.");
+                document.getElementById('content').innerHTML = `
+                    <h2>🎉 Practice Complete!</h2>
+                    <p>You've completed both technical and leadership practice. You're well-prepared for your Amazon Application Security Engineer interview!</p>
+                `;
+            }
+        }
+
+        function startBusinessPractice() {
+            document.getElementById('content').innerHTML = `
+                <h2>💼 Business Impact Practice</h2>
+                <div class="question">
+                    <h3>Scenario</h3>
+                    <p>Calculate the business impact of a data breach affecting 100,000 Prime members at Amazon.</p>
+                    <p><strong>Framework:</strong> CLV protection + regulatory costs + trust impact</p>
+                </div>
+                <div class="controls">
+                    <button onclick="showBusinessSolution()">💡 Show Solution</button>
+                </div>
+                <div id="businessSolution"></div>
+            `;
+
+            speak("Business impact calculation practice. Calculate the business impact of a data breach affecting 100,000 Prime members. Use the framework: Customer Lifetime Value protection plus regulatory costs plus trust impact. Think through the calculation.");
+        }
+
+        function showBusinessSolution() {
+            document.getElementById('businessSolution').innerHTML = `
+                <div class="key-points">
+                    <h4>Solution:</h4>
+                    <ul>
+                        <li>Base Impact: 100,000 Prime members × $2,500 CLV = $250M</li>
+                        <li>Breach Multiplier: $250M × 2.5 = $625M total impact</li>
+                        <li>GDPR Notification: 100,000 × €165 = €16.5M ($18M)</li>
+                        <li>Total Business Impact: ~$643 million</li>
+                    </ul>
+                </div>
+            `;
+
+            speak("Solution: 100,000 Prime members times $2,500 customer lifetime value equals $250 million base impact. Apply breach multiplier of 2.5 equals $625 million. Add GDPR notification costs of approximately $18 million. Total business impact is approximately $643 million.");
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            speak("Welcome to Amazon Interview Practice! Choose a practice mode to begin preparing for your Application Security Engineer interview.");
+        });
+    </script>
+</body>
+</html>
